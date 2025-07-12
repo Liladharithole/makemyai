@@ -6,11 +6,11 @@
   font-family: "Outfit", sans-serif;
 }
 
-@theme {
+:root {
     --color-primary: #55ff00;
     --color-secondary: #08B6CE;
     --color-tertiary: #0097B6;
     --color-quaternary: #007791;
     --color-quinary: #00576B;
-    --color-tertiary: #003746;
+    --color-senary: #003746;
 }
