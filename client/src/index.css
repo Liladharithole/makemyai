@@ -7,9 +7,13 @@
   font-family: "Outfit", sans-serif;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   --color-primary: #08b6ce;
-  --color-secondary: #55ff00;
+  --color-secondary: #0097b6;
   --color-tertiary: #0097b6;
   --color-quaternary: #007791;
   --color-quinary: #00576b;

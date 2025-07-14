@@ -9,10 +9,15 @@ const Navbar = () => {
   const { user } = useUser();
   const { openSignIn } = useClerk();
 
-
   return (
-    <div className="fixed z-5 w-full background-blur-2xl flex justify-between items-center py-3 px-4 sm:px-20 xl:px-32 cursor-pointer">
-      <img  alt={assets.logo} onClick={() => navigate("/")} />
+    <div className="fixed z-50 w-full backdrop-blur-lg bg-white/10 flex justify-between items-center py-3 px-4 sm:px-20 xl:px-32 cursor-pointer">
+      {/* <img  alt={assets.logo} onClick={() => navigate("/")} /> */}
+      <h2
+        className="text-[var(--color-primary)] font-semibold text-2xl cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        MakeMyAI
+      </h2>
       {user ? (
         <UserButton />
       ) : (

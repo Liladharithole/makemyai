@@ -37,7 +37,7 @@ const Hero = () => {
       </div>
       <div className="flex items-center gap-4 mt-8 mx-auto text-gray-600">
         <img src={assets.user_group} alt="" className="h-8" />
-        <p className="text-md">Trusted by 100+ users</p>
+        <p className="text-md">Trusted by 1000+ users</p>
       </div>
     </div>
   );
