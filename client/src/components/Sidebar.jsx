@@ -1,5 +1,5 @@
 import React from "react";
-import { useUser, useClerk } from "@clerk/clerk-react";
+import { useUser, useClerk, Protect } from "@clerk/clerk-react";
 import {
   FileText,
   Hash,
@@ -8,6 +8,7 @@ import {
   SquarePen,
   Eraser,
   Scissors,
+  LogOut,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -53,6 +54,7 @@ const navItems = [
 const Sidebar = ({ sidebar, setSidebar }) => {
   const { user } = useUser();
   const { signOut, openUserProfile } = useClerk();
+
   const navigate = useNavigate();
   return (
     <div
@@ -64,10 +66,12 @@ const Sidebar = ({ sidebar, setSidebar }) => {
         <img
           src={user?.imageUrl}
           alt={user?.fullName}
-          className="w-14 rounded-full mx-auto cursor-pointer"
+          className="w-14 p-2  rounded-full mx-auto cursor-pointer"
         />
-        <h1 className="text-center text-gray-600 mt-1">{user?.fullName}</h1>
-        <div>
+        <h1 className="text-center text-gray-600 mt-1 mb-4">
+          {user?.fullName}
+        </h1>
+        <div className="px-6 mt-5 text-sm text-gray-600 font-medium flex flex-col gap-2">
           {navItems.map(({ to, label, Icon }) => {
             return (
               <NavLink
@@ -106,6 +110,35 @@ const Sidebar = ({ sidebar, setSidebar }) => {
               </NavLink>
             );
           })}
+        </div>
+      </div>
+      <div className="w-full border-t border-gray-200 p-4 px-7 flex items-center justify-between">
+        <div
+          onClick={() => openUserProfile()}
+          className="flex items-center gap-2 cursor-pointer"
+        >
+          <img
+            src={user?.imageUrl}
+            alt={user?.fullName}
+            className="w-8 rounded-full"
+          />
+          <div>
+            <h1 className="text-sm font-medium text-gray-600">
+              {user?.fullName}
+            </h1>
+            <p className="text-xs text-gray-500 cursor-pointer">
+              <Protect plan="premium" fallback="Free">
+                <span className="text-xs m-1">Premium</span>
+              </Protect>
+              <span className="text-xs m-1">Plan</span>
+            </p>
+          </div>
+        </div>
+        <div>
+          <LogOut
+            onClick={() => signOut()}
+            className="w-4.5 text-gray-400 hover:text-gray-700 transition-all duration-300 cursor-pointer"
+          />
         </div>
       </div>
     </div>
