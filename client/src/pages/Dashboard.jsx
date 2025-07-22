@@ -50,7 +50,6 @@ const Dashboard = () => {
       {/* Recent Creations */}
       <div className="space-y-3">
         <p className="mt-6 mb-4">Recent Creations</p>
-        
       </div>
     </div>
   );
