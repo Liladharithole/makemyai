@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { dummyCreationData } from "../assets/assets";
 import { GemIcon, SparkleIcon } from "lucide-react";
 import { Protect } from "@clerk/clerk-react";
+import CreationItem from "../components/CreationItem";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -50,6 +51,9 @@ const Dashboard = () => {
       {/* Recent Creations */}
       <div className="space-y-3">
         <p className="mt-6 mb-4">Recent Creations</p>
+        {creation.map((item) => {
+          return <CreationItem key={item.id} item={item} />;
+        })}
       </div>
     </div>
   );
