@@ -11,8 +11,6 @@ const WriteArticle = () => {
   const [selectedLength, setSelectedLength] = useState(articleLength[0]);
   const [input, setInput] = useState("");
 
-
-
   return (
     <div className="h-auto overflow-y-scroll p-6 flex item-start flex-wrap gap-4 text-slate-700">
       {/* right col */}
@@ -31,7 +29,12 @@ const WriteArticle = () => {
         <p className="mt-4 text-sm font-medium">Article Length</p>
         <div className="mt-3 flex gap-3 flex-wrap sm:ax-w-9/11">
           {articleLength.map((item, index) => (
-            <span className="text-xs px-4 py-1 rounded-full border border-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300" key={index}>{item.text}</span>
+            <span
+              className="text-xs px-4 py-1 rounded-full border border-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300"
+              key={index}
+            >
+              {item.text}
+            </span>
           ))}
         </div>
       </form>
