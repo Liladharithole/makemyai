@@ -30,7 +30,12 @@ const WriteArticle = () => {
         <div className="mt-3 flex gap-3 flex-wrap sm:ax-w-9/11">
           {articleLength.map((item, index) => (
             <span
-              className="text-xs px-4 py-1 rounded-full border border-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300"
+              onClick={() => setSelectedLength(item)}
+              className={`text-xs px-4 py-1 rounded-full border border-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300 ${
+                selectedLength.text === item.text
+                  ? "bg-[var(--color-secondary)] text-white"
+                  : ""
+              }`}
               key={index}
             >
               {item.text}
