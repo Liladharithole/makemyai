@@ -13,14 +13,15 @@ const WriteArticle = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    
-  }
+  };
 
-  
   return (
     <div className="h-auto overflow-y-scroll p-6 flex item-start flex-wrap gap-4 text-slate-700">
       {/* right col */}
-      <form onSubmit={onSubmitHandler} className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200">
+      <form
+        onSubmit={onSubmitHandler}
+        className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200"
+      >
         <div className="flex items-center gap-3 mb-4">
           <SparkleIcon className="w-6 text-[var(--color-primary)]" />
           <h2 className="text-xl font-semibold">Article Configuration</h2>
@@ -57,8 +58,17 @@ const WriteArticle = () => {
         </button>
       </form>
       {/* left col */}
-      <div>
-        
+      <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 max-h-[600px]">
+        <div className="flex items-center gap-3 mb-4">
+          <Edit className="w-6 text-[var(--color-primary)]" />
+          <h2 className="text-xl font-semibold">Generated Article Preview</h2>
+        </div>
+        <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 max-h-[600px]">
+          <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 max-h-[600px]">
+            <Edit className="w-9 h-9 text-[var(--color-primary)]" />
+            <p className="text-sm text-gray-500">Enter a Topic and click "Generate Article" to get started</p>
+          </div>
+        </div>
       </div>
     </div>
   );
