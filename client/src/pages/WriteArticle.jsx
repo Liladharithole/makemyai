@@ -52,7 +52,7 @@ const WriteArticle = () => {
           ))}
         </div>
         <br />
-        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white px-4 py-2.5 rounded-full hover:scale-102 active:scale-95 transition-all duration-300 text-sm cursor-pointer">
+        <button className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white px-4 py-2.5 rounded-full hover:scale-102 active:scale-95 transition-all duration-300 text-sm cursor-pointer mt-6">
           <Edit className="w-5" />
           Generate Article
         </button>
@@ -64,10 +64,10 @@ const WriteArticle = () => {
           <h2 className="text-xl font-semibold">Generated Article Preview</h2>
         </div>
         <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 max-h-[600px]">
-          <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 max-h-[600px]">
-            <Edit className="w-9 h-9 text-[var(--color-primary)]" />
-            <p className="text-sm text-gray-500">Enter a Topic and click "Generate Article" to get started</p>
-          </div>
+          <Edit className="w-9 h-9 text-gray-500" />
+          <p className="text-sm text-gray-500">
+            Enter a Topic and click "Generate Article" to get started
+          </p>
         </div>
       </div>
     </div>
