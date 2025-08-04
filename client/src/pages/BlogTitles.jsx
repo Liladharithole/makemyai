@@ -13,6 +13,7 @@ const BlogTitles = () => {
     "Food",
     "Fashion",
     "Beauty",
+    "Music",
     "Lifestyle",
   ];
 
@@ -24,11 +25,11 @@ const BlogTitles = () => {
   };
 
   return (
-    <div className="h-auto overflow-y-scroll p-6 flex item-start flex-wrap gap-4 text-slate-700">
+    <div className="h-auto min-h-screen p-6 flex flex-col lg:flex-row items-start justify-start gap-6 text-slate-700 overflow-x-hidden">
       {/* right col */}
       <form
         onSubmit={onSubmitHandler}
-        className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200"
+        className="w-full lg:w-1/2 xl:max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex-shrink-0"
       >
         <div className="flex items-center gap-3 mb-4">
           <SparkleIcon className="w-6 text-[var(--color-primary)]" />
@@ -66,7 +67,7 @@ const BlogTitles = () => {
         </button>
       </form>
       {/* left col */}
-      <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 ">
+      <div className="w-full lg:w-1/2 xl:max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex-shrink-0">
         <div className="flex items-center gap-3 mb-4">
           <Edit className="w-6 text-[var(--color-primary)]" />
           <h2 className="text-xl font-semibold">Generated Title</h2>
