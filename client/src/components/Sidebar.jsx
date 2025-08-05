@@ -58,8 +58,8 @@ const Sidebar = ({ sidebar, setSidebar }) => {
   const navigate = useNavigate();
   return (
     <div
-      className={`w-60 bg-white border-r border-gray-200 flex flex-col justify-between items-center max-sm:absolute max-sm:left-0 max-sm:top-14 max-sm:h-screen max-sm:z-20 max-sm:translate-x-0 transition-all duration-300 ease-in-out top-14 bottom-0 ${
-        sidebar ? "translate-x-0" : "max-sm:-translate-x-full"
+      className={`w-60 bg-white border-r border-gray-200 flex flex-col justify-between items-center h-full absolute sm:relative transition-all duration-300 ease-in-out z-20 ${
+        sidebar ? "translate-x-0" : "-translate-x-full sm:translate-x-0"
       }`}
     >
       <div className="my-7 w-full">
