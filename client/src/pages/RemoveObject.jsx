@@ -1,8 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SparkleIcon, EraserIcon, X, ScissorsIcon } from "lucide-react";
+import {
+  SparkleIcon,
+  EraserIcon,
+  X,
+  ScissorsIcon,
+  SparklesIcon,
+} from "lucide-react";
 
 const RemoveObject = () => {
   const [input, setInput] = useState(null);
+  const [object, setObject] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -47,8 +54,8 @@ const RemoveObject = () => {
         className="w-full lg:w-1/2 xl:max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex-shrink-0"
       >
         <div className="flex items-center gap-3 mb-4">
-          <SparkleIcon className="w-6 text-[var(--color-primary)]" />
-          <h2 className="text-xl font-semibold">Remove Object</h2>
+          <SparklesIcon className="w-6 text-[var(--color-primary)]" />
+          <h2 className="text-xl font-semibold">Object Removal</h2>
         </div>
         <p className="text-sm font-medium">Upload Image</p>
         <div className="relative">
@@ -83,6 +90,17 @@ const RemoveObject = () => {
         <p className="text-xs text-gray-600 font-light mt-2">
           Support formats: .jpg, .jpeg, .png, .gif, .webp
         </p>
+        <p className="mt-4 text-sm font-medium">
+          Describe Object Name to remove
+        </p>
+        <textarea
+          value={object}
+          onChange={(e) => setObject(e.target.value)}
+          rows={4}
+          className="w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300"
+          placeholder="Describe the object to remove"
+          required
+        />
         <button
           type="submit"
           disabled={!input}
