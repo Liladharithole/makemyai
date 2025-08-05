@@ -9,6 +9,7 @@ import {
   Eraser,
   Scissors,
   LogOut,
+  Users,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -48,6 +49,11 @@ const navItems = [
     to: "/ai/review-resume",
     label: "Review Resume",
     Icon: FileText,
+  },
+  {
+    to: "/ai/community",
+    label: "Community",
+    Icon: Users,
   },
 ];
 
