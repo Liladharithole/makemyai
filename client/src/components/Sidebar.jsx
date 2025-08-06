@@ -60,7 +60,6 @@ const navItems = [
 const Sidebar = ({ sidebar, setSidebar }) => {
   const { user } = useUser();
   const { signOut, openUserProfile } = useClerk();
-
   const navigate = useNavigate();
   return (
     <div
@@ -86,6 +85,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
                 end={to === "/ai"}
                 onClick={() => {
                   setSidebar(false);
+                  navigate(to);
                 }}
                 className={({ isActive }) =>
                   `px-3.5 py-2.5 flex item-center gap-3 rounded hover:bg-gray-100 ${
