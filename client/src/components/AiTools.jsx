@@ -9,38 +9,43 @@ const AiTools = () => {
   const { openSignIn } = useClerk();
 
   return (
-    <div className="px-4 sm:px-20 xl:px-32 my-24 ">
-      <div className="text-center">
-        <h2 className="text-slate-700 text-[42px] font-semibold">
-          {" "}
+    <div className="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 py-12 sm:py-16 md:py-20 lg:py-24">
+      <div className="text-center max-w-4xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-slate-800 mb-3 sm:mb-4">
           Powerful AI Tools
         </h2>
-        <p className="text-gray-500 max-w-lg mx-auto">
-          Explore our AI tools and generate content with ease. and optimize your
-          content creation workflow with cutting edge AI technology.
+        <p className="text-gray-600 text-sm sm:text-base md:text-lg px-2 sm:px-4">
+          Explore our AI tools and generate content with ease. Optimize your
+          content creation workflow with cutting-edge AI technology.
         </p>
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-4 mt-6 text-sm max-sm:text-xs">
-        {AiToolsData.map((tool, index) => {
-          return (
-            <div
-              key={index}
-              className="p-8 m-4 max-w-xs rounded-lg bg-[#FDFDFE] shadow-lg border border-gray-100 hover:translate-y-1 active:translate-y-1 transition-all duration-300 cursor-pointer"
-              onClick={() => user ? navigate(tool.path) : openSignIn()}
-            >
-              <tool.Icon
-                className="w-12 h-12 p-3 text-white rounded-full bg-[var(--color-primary)]"
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 md:mt-16">
+        {AiToolsData.map((tool, index) => (
+          <div
+            key={index}
+            className="p-4 sm:p-6 md:p-8 rounded-xl bg-white shadow-md hover:shadow-lg border border-gray-100 
+                       active:scale-[0.98] transition-all duration-200 cursor-pointer transform hover:-translate-y-1"
+            onClick={() => user ? navigate(tool.path) : openSignIn()}
+          >
+            <div className="flex items-center">
+              <div 
+                className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0 flex items-center justify-center rounded-full"
                 style={{
                   background: `linear-gradient(to bottom, ${tool.bg.from}, ${tool.bg.to})`,
                 }}
-              />
-              <h3 className="text-lg font-semibold mt-6 mb-3">{tool.title}</h3>
-              <p className="text-gray-400 text-sm max-w-[95%]">
-                {tool.description}
-              </p>
+              >
+                <tool.Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              </div>
+              <h3 className="text-base sm:text-lg font-semibold text-slate-800 ml-3 sm:ml-4">
+                {tool.title}
+              </h3>
             </div>
-          );
-        })}
+            <p className="text-gray-500 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed">
+              {tool.description}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
