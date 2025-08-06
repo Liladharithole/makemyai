@@ -38,3 +38,67 @@ body {
 .cl-drawerRoot {
   z-index: 9999 !important;
 }
+
+/* Custom scroll animations */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50%));
+  }
+}
+@keyframes scroll-right {
+  0% {
+    transform: translateX(calc(-50%));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+  will-change: transform;
+  display: flex;
+  width: max-content;
+}
+.animate-scroll-right {
+  animation: scroll-right 40s linear infinite;
+  will-change: transform;
+  display: flex;
+  width: max-content;
+}
+.animate-scroll-left:hover,
+.animate-scroll-right:hover {
+  animation-play-state: paused;
+}
+
+/* Respect user accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-left,
+  .animate-scroll-right {
+    animation: none;
+  }
+}
+@media (max-width: 640px) {
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% + 140px));
+    }
+  }
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(calc(-50% + 140px));
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  .animate-scroll-left,
+  .animate-scroll-right {
+    animation-duration: 60s;
+  }
+}

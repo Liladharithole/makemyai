@@ -76,68 +76,50 @@ const Testimonial = () => {
               What Our Customers Say
             </h2>
             <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto">
-              Hear from businesses and individuals who have transformed their workflow with our AI tools.
+              Hear from businesses and individuals who have transformed their
+              workflow with our AI tools.
             </p>
           </div>
         </div>
 
-        {/* First row */}
-        <div className="relative mb-6">
-          <div className="flex space-x-6 animate-scroll-left">
-            {[...testimonials, ...testimonials].map((testimonial, index) => (
-              <div key={`row1-${index}`} className="flex-shrink-0 w-80 sm:w-96">
-                <TestimonialCard testimonial={testimonial} />
-              </div>
-            ))}
+        {/* Carousel Container */}
+        <div className="bg-white rounded-xl shadow-sm p-6 sm:p-8 mb-10 mt-16 mx-4 sm:mx-10 sm:mb-14 overflow-hidden border-[var(--color-primary)] border-2 border-dashed">
+          {/* First row */}
+          <div className="relative mb-8 overflow-visible">
+            <div className="flex space-x-4 sm:space-x-6 animate-scroll-left">
+              {[...testimonials, ...testimonials].map((testimonial, index) => (
+                <div
+                  key={`row1-${index}`}
+                  className="flex-shrink-0 w-[280px] sm:w-96"
+                >
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
-        </div>
 
-        {/* Second row - scrolls in opposite direction */}
-        <div className="relative">
-          <div className="flex space-x-6 animate-scroll-right">
-            {[...testimonials].reverse().map((testimonial, index) => (
-              <div key={`row2-${index}`} className="flex-shrink-0 w-80 sm:w-96">
-                <TestimonialCard testimonial={testimonial} />
-              </div>
-            ))}
-            {[...testimonials].map((testimonial, index) => (
-              <div key={`row2-${index + testimonials.length}`} className="flex-shrink-0 w-80 sm:w-96">
-                <TestimonialCard testimonial={testimonial} />
-              </div>
-            ))}
+          {/* Second row - scrolls in opposite direction */}
+          <div className="relative overflow-visible">
+            <div className="flex space-x-4 sm:space-x-6 animate-scroll-right">
+              {[...testimonials].reverse().map((testimonial, index) => (
+                <div
+                  key={`row2-${index}`}
+                  className="flex-shrink-0 w-[280px] sm:w-96"
+                >
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              ))}
+              {[...testimonials].map((testimonial, index) => (
+                <div
+                  key={`row2-${index + testimonials.length}`}
+                  className="flex-shrink-0 w-[280px] sm:w-96"
+                >
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
         </div>
-
-        {/* Custom scroll animations */}
-        <style jsx global>{`
-          @keyframes scroll-left {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(calc(-100% + 20rem));
-            }
-          }
-          @keyframes scroll-right {
-            0% {
-              transform: translateX(calc(-100% + 20rem));
-            }
-            100% {
-              transform: translateX(0);
-            }
-          }
-          .animate-scroll-left {
-            animation: scroll-left 30s linear infinite;
-          }
-          .animate-scroll-right {
-            animation: scroll-right 30s linear infinite;
-          }
-          .animate-scroll-left:hover, .animate-scroll-right:hover {
-            animation-play-state: paused;
-          }
-        `}</style>
       </div>
     </section>
   );
@@ -162,13 +144,13 @@ const TestimonialCard = ({ testimonial }) => (
         <p className="text-sm text-gray-500">{testimonial.address}</p>
       </div>
     </div>
-    
+
     <div className="flex items-center gap-1 mt-3 sm:mt-4">
       {[1, 2, 3, 4, 5].map((star) => (
         <Star key={star} filled={testimonial.rating >= star} />
       ))}
     </div>
-    
+
     <blockquote className="mt-4 sm:mt-5 text-sm sm:text-base text-gray-600">
       <p className="line-clamp-4">"{testimonial.review}"</p>
     </blockquote>
