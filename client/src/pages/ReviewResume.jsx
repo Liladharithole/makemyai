@@ -124,7 +124,7 @@ const ReviewResume = () => {
           disabled={!file}
           className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white px-4 py-2.5 rounded-full hover:scale-102 active:scale-95 transition-all duration-300 text-sm cursor-pointer mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <SparklesIcon className="w-5" />
+          <FileText className="w-5" />
           {file ? "Review My Resume" : "Upload a Resume First"}
         </button>
       </form>

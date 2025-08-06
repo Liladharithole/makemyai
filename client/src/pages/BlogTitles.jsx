@@ -66,16 +66,17 @@ const BlogTitles = () => {
           Generate Title
         </button>
       </form>
-      {/* left col */}
+      {/* right col - Results */}
       <div className="w-full lg:w-1/2 xl:max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex-shrink-0">
         <div className="flex items-center gap-3 mb-4">
-          <Edit className="w-6 text-[var(--color-primary)]" />
-          <h2 className="text-xl font-semibold">Generated Title</h2>
+          <SparkleIcon className="w-6 text-[var(--color-primary)]" />
+          <h2 className="text-xl font-semibold">Generated Titles</h2>
         </div>
-        <div className="w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200 flex flex-col justify-center items-center min-h-96 max-h-[600px]">
-          <HashIcon className="w-9 h-9 text-gray-500" />
-          <p className="text-sm text-gray-500">
-            Enter a Topic and click "Generate Title" to get started
+        <div className="w-full p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center min-h-[500px]">
+          <HashIcon className="w-16 h-16 text-gray-300 mb-4" />
+          <h3 className="text-lg font-medium text-gray-700 mb-2">Your AI-Generated Titles Will Appear Here</h3>
+          <p className="text-sm text-gray-500 text-center max-w-xs">
+            Enter a keyword and select a category to generate creative blog title ideas
           </p>
         </div>
       </div>
