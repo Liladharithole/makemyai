@@ -1,3 +1,20 @@
+// Star component for rating display
+const Star = ({ filled }) => (
+  <svg
+    className="w-4 h-4 text-yellow-400"
+    fill={filled ? "currentColor" : "none"}
+    stroke="currentColor"
+    strokeWidth="1.5"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 17.25l-6.16 3.73 1.64-7.03L2.5 9.77l7.19-.61L12 2.5l2.31 6.66 7.19.61-5 4.18 1.64 7.03z"
+    />
+  </svg>
+);
+
 const Testimonial = () => {
   const testimonials = [
     {
@@ -47,66 +64,115 @@ const Testimonial = () => {
     },
   ];
 
-  const Star = ({ filled }) => (
-    <svg
-      className="w-4 h-4 text-yellow-400"
-      fill={filled ? "currentColor" : "none"}
-      stroke="currentColor"
-      strokeWidth="1.5"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 17.25l-6.16 3.73 1.64-7.03L2.5 9.77l7.19-.61L12 2.5l2.31 6.66 7.19.61-5 4.18 1.64 7.03z"
-      />
-    </svg>
-  );
+  // Duplicate testimonials for continuous scroll effect
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <div className="flex flex-col items-center px-6 md:px-16 lg:px-24 pt-20 pb-30">
-      <div className="flex flex-col justify-center items-center text-center">
-        <h1 className="text-4xl md:text-[40px] font-bold">
-          Customer Testimonials
-        </h1>
-        <p className="text-sm md:text-base text-gray-500/90 mt-2 max-w-[696px]">
-          Hear what our users say about us. We're always looking for ways to
-          improve. If you have a positive experience with us, leave a review.
-        </p>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-center gap-6 mt-20 mb-10">
-        {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.id}
-            className="bg-white p-6 rounded-xl shadow max-w-xs"
-          >
-            <div className="flex items-center gap-3">
-              <img
-                className="w-12 h-12 rounded-full"
-                src={testimonial.image}
-                alt={testimonial.name}
-              />
-              <div>
-                <p className="font-playfair text-xl">{testimonial.name}</p>
-                <p className="text-gray-500">{testimonial.address}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-1 mt-4">
-              {Array(5)
-                .fill(0)
-                .map((_, index) => (
-                  <Star key={index} filled={testimonial.rating > index} />
-                ))}
-            </div>
-            <p className="text-gray-500 max-w-90 mt-4">
-              "{testimonial.review}"
+    <section className="w-full py-12 sm:py-16 overflow-hidden">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto mb-10 sm:mb-14">
+          <div className="text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              What Our Customers Say
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto">
+              Hear from businesses and individuals who have transformed their workflow with our AI tools.
             </p>
           </div>
-        ))}
+        </div>
+
+        {/* First row */}
+        <div className="relative mb-6">
+          <div className="flex space-x-6 animate-scroll-left">
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
+              <div key={`row1-${index}`} className="flex-shrink-0 w-80 sm:w-96">
+                <TestimonialCard testimonial={testimonial} />
+              </div>
+            ))}
+          </div>
+          <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
+        </div>
+
+        {/* Second row - scrolls in opposite direction */}
+        <div className="relative">
+          <div className="flex space-x-6 animate-scroll-right">
+            {[...testimonials].reverse().map((testimonial, index) => (
+              <div key={`row2-${index}`} className="flex-shrink-0 w-80 sm:w-96">
+                <TestimonialCard testimonial={testimonial} />
+              </div>
+            ))}
+            {[...testimonials].map((testimonial, index) => (
+              <div key={`row2-${index + testimonials.length}`} className="flex-shrink-0 w-80 sm:w-96">
+                <TestimonialCard testimonial={testimonial} />
+              </div>
+            ))}
+          </div>
+          <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
+        </div>
+
+        {/* Custom scroll animations */}
+        <style jsx global>{`
+          @keyframes scroll-left {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-100% + 20rem));
+            }
+          }
+          @keyframes scroll-right {
+            0% {
+              transform: translateX(calc(-100% + 20rem));
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+          .animate-scroll-left {
+            animation: scroll-left 30s linear infinite;
+          }
+          .animate-scroll-right {
+            animation: scroll-right 30s linear infinite;
+          }
+          .animate-scroll-left:hover, .animate-scroll-right:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
       </div>
-    </div>
+    </section>
   );
 };
+
+// Extracted Testimonial Card component for better readability
+const TestimonialCard = ({ testimonial }) => (
+  <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6">
+    <div className="flex items-start gap-4">
+      <img
+        className="w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 rounded-full object-cover"
+        src={testimonial.image}
+        alt={testimonial.name}
+        width={56}
+        height={56}
+        loading="lazy"
+      />
+      <div className="flex-1 min-w-0">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
+          {testimonial.name}
+        </h3>
+        <p className="text-sm text-gray-500">{testimonial.address}</p>
+      </div>
+    </div>
+    
+    <div className="flex items-center gap-1 mt-3 sm:mt-4">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star key={star} filled={testimonial.rating >= star} />
+      ))}
+    </div>
+    
+    <blockquote className="mt-4 sm:mt-5 text-sm sm:text-base text-gray-600">
+      <p className="line-clamp-4">"{testimonial.review}"</p>
+    </blockquote>
+  </div>
+);
 
 export default Testimonial;
