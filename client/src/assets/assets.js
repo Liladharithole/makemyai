@@ -144,6 +144,7 @@ export const dummyCreationData = [
 export const dummyPublishedCreationData = [
     {
         "id": 1,
+        "user": "Liladhar",
         "user_id": "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
         "prompt": "Generate an image of A Boy is on Boat , and fishing in the style Anime style.",
         "content": ai_gen_img_1,
@@ -158,6 +159,7 @@ export const dummyPublishedCreationData = [
     },
     {
         "id": 2,
+        "user": "Lila",
         "user_id": "user_2yMX02PRbyMtQK6PebpjnxvRNIA",
         "prompt": "Generate an image of A Boy Riding a bicycle on road and bicycle is from year 2201  in the style Anime style.",
         "content": ai_gen_img_2,
@@ -172,6 +174,7 @@ export const dummyPublishedCreationData = [
     },
     {
         "id": 3,
+        "user": "Liladhar Ithole",
         "user_id": "user_2yaW5EHzeDfQbXdAJWYFnZo2bje",
         "prompt": "Generate an image of a boy riding a car on sky in the style Realistic.",
         "content": ai_gen_img_3,
