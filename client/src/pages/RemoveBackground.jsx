@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Edit,
-  SparklesIcon,
-  HashIcon,
-  Image,
-  EraserIcon,
-  X,
-} from "lucide-react";
+import { SparklesIcon, Image, EraserIcon, X } from "lucide-react";
 
 const RemoveBackground = () => {
   const [input, setInput] = useState(null);
@@ -47,19 +40,19 @@ const RemoveBackground = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!input) return;
-    
+
     setIsProcessing(true);
-    
+
     try {
       // TODO: Replace this with actual API call to process the image
       // For now, we'll just simulate a delay and use the same image
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // In a real implementation, you would get the processed image URL from your API
       // For now, we'll use the same image for demonstration
       setProcessedImage(imagePreview);
     } catch (error) {
-      console.error('Error processing image:', error);
+      console.error("Error processing image:", error);
       // Handle error appropriately
     } finally {
       setIsProcessing(false);
@@ -82,9 +75,9 @@ const RemoveBackground = () => {
           {imagePreview ? (
             <div className="relative mb-4">
               <div className="w-full p-4 bg-gray-50 rounded-md border border-gray-200 flex flex-col items-center">
-                <img 
-                  src={imagePreview} 
-                  alt="Preview" 
+                <img
+                  src={imagePreview}
+                  alt="Preview"
                   className="max-h-40 max-w-full object-contain mb-2"
                 />
                 <div className="mt-3 flex gap-2">
@@ -201,7 +194,8 @@ const RemoveBackground = () => {
         {processedImage && (
           <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
             <p className="text-sm text-blue-700">
-              <span className="font-medium">Tip:</span> For best results, use images with clear contrast between the subject and background.
+              <span className="font-medium">Tip:</span> For best results, use
+              images with clear contrast between the subject and background.
             </p>
           </div>
         )}
