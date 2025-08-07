@@ -4,8 +4,8 @@ import { SparklesIcon, X, FileText, Download } from "lucide-react";
 const ReviewResume = () => {
   const [file, setFile] = useState(null);
   const [filePreview, setFilePreview] = useState(null);
-  const [fileName, setFileName] = useState('');
-  const [fileType, setFileType] = useState('');
+  const [fileName, setFileName] = useState("");
+  const [fileType, setFileType] = useState("");
   const fileInputRef = useRef(null);
 
   // Clean up object URLs when the component unmounts
@@ -23,7 +23,7 @@ const ReviewResume = () => {
       setFile(selectedFile);
       setFileName(selectedFile.name);
       setFileType(selectedFile.type);
-      
+
       // Create a preview URL for the file
       const fileURL = URL.createObjectURL(selectedFile);
       setFilePreview(fileURL);
@@ -36,10 +36,10 @@ const ReviewResume = () => {
     }
     setFile(null);
     setFilePreview(null);
-    setFileName('');
-    setFileType('');
+    setFileName("");
+    setFileType("");
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -64,7 +64,9 @@ const ReviewResume = () => {
             <div className="relative mb-4">
               <div className="w-full p-4 bg-gray-50 rounded-md border border-gray-200 flex flex-col items-center">
                 <FileText className="w-12 h-12 text-gray-400 mb-2" />
-                <p className="text-sm font-medium text-gray-700 truncate max-w-full">{fileName}</p>
+                <p className="text-sm font-medium text-gray-700 truncate max-w-full">
+                  {fileName}
+                </p>
                 <p className="text-xs text-gray-500 uppercase">{fileType}</p>
                 <div className="mt-3 flex gap-2">
                   <a
@@ -111,9 +113,7 @@ const ReviewResume = () => {
         <p className="text-xs text-gray-600 font-light mt-2">
           Support formats: .pdf, .doc, .docx (Max 5MB)
         </p>
-        <p className="mt-4 text-sm font-medium">
-          Additional Notes (Optional)
-        </p>
+        <p className="mt-4 text-sm font-medium">Additional Notes (Optional)</p>
         <textarea
           rows={4}
           className="w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300"
@@ -136,9 +136,12 @@ const ReviewResume = () => {
         </div>
         <div className="w-full p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center min-h-[500px]">
           <FileText className="w-16 h-16 text-gray-300 mb-4" />
-          <h3 className="text-lg font-medium text-gray-700 mb-2">Your Review Will Appear Here</h3>
+          <h3 className="text-lg font-medium text-gray-700 mb-2">
+            Your Review Will Appear Here
+          </h3>
           <p className="text-sm text-gray-500 text-center max-w-xs">
-            Upload your resume and click "Review My Resume" to get detailed feedback and suggestions.
+            Upload your resume and click "Review My Resume" to get detailed
+            feedback and suggestions.
           </p>
         </div>
       </div>
