@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SparklesIcon, Image, EraserIcon, X } from "lucide-react";
+import {
+  Sparkle,
+  Image as ImageIcon,
+  X,
+  Upload,
+  Download,
+  Sparkles as SparklesIcon,
+  Eraser as EraserIcon,
+} from "lucide-react";
 
 const RemoveBackground = () => {
   const [input, setInput] = useState(null);
@@ -11,46 +19,63 @@ const RemoveBackground = () => {
   // Clean up object URLs when the component unmounts
   useEffect(() => {
     return () => {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview);
-      }
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+      if (processedImage) URL.revokeObjectURL(processedImage);
     };
-  }, [imagePreview]);
+  }, [imagePreview, processedImage]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setInput(file);
       setImagePreview(URL.createObjectURL(file));
+      setProcessedImage(null); // Reset processed image when new image is uploaded
     }
   };
 
   const handleRemoveImage = () => {
-    // Revoke the object URL to prevent memory leaks
-    if (imagePreview) {
-      URL.revokeObjectURL(imagePreview);
-    }
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    if (processedImage) URL.revokeObjectURL(processedImage);
     setInput(null);
     setImagePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    setProcessedImage(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    if (!input) return;
+  const handleDownload = () => {
+    if (!processedImage) return;
+    const link = document.createElement("a");
+    link.href = processedImage;
+    link.download = `background-removed-${new Date().getTime()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
+  const processImage = async () => {
+    if (!input) return;
     setIsProcessing(true);
 
     try {
-      // TODO: Replace this with actual API call to process the image
-      // For now, we'll just simulate a delay and use the same image
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Simulate API call with timeout
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // In a real implementation, you would get the processed image URL from your API
-      // For now, we'll use the same image for demonstration
+      // In a real app, you would upload the image to your backend here
+      // For demo, we'll just use the same image with a different style
       setProcessedImage(imagePreview);
+    } catch (error) {
+      console.error("Error processing image:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // In a real implementation, you would get the processed image URL from your API
+  // For now, we'll use the same image for demonstration
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await processImage();
     } catch (error) {
       console.error("Error processing image:", error);
       // Handle error appropriately
@@ -103,7 +128,7 @@ const RemoveBackground = () => {
             </div>
           ) : (
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-              <Image className="w-10 h-10 mx-auto text-gray-400 mb-2" />
+              <ImageIcon className="w-10 h-10 mx-auto text-gray-400 mb-2" />
               <p className="text-sm text-gray-600">
                 Drag and drop your image here, or click to select
               </p>

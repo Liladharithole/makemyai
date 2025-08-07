@@ -10,7 +10,7 @@ import {
 
 const RemoveObject = () => {
   const [input, setInput] = useState(null);
-  const [object, setObject] = useState('');
+  const [object, setObject] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [processedImage, setProcessedImage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -48,19 +48,19 @@ const RemoveObject = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!input || !object) return;
-    
+
     setIsProcessing(true);
-    
+
     try {
       // TODO: Replace this with actual API call to process the image
       // For now, we'll just simulate a delay and use the same image
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // In a real implementation, you would get the processed image URL from your API
       // For now, we'll use the same image for demonstration
       setProcessedImage(imagePreview);
     } catch (error) {
-      console.error('Error processing image:', error);
+      console.error("Error processing image:", error);
       // Handle error appropriately
     } finally {
       setIsProcessing(false);
@@ -83,9 +83,9 @@ const RemoveObject = () => {
           {imagePreview ? (
             <div className="relative mb-4">
               <div className="w-full p-4 bg-gray-50 rounded-md border border-gray-200 flex flex-col items-center">
-                <img 
-                  src={imagePreview} 
-                  alt="Preview" 
+                <img
+                  src={imagePreview}
+                  alt="Preview"
                   className="max-h-40 max-w-full object-contain mb-2"
                 />
                 <div className="mt-3 flex gap-2">
@@ -217,7 +217,9 @@ const RemoveObject = () => {
         {processedImage && (
           <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
             <p className="text-sm text-blue-700">
-              <span className="font-medium">Tip:</span> If the result isn't perfect, try being more specific about the object you want to remove or adjust your description.
+              <span className="font-medium">Tip:</span> If the result isn't
+              perfect, try being more specific about the object you want to
+              remove or adjust your description.
             </p>
           </div>
         )}
