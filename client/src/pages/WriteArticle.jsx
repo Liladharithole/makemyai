@@ -23,7 +23,12 @@ const WriteArticle = () => {
       words: "800-1200 words",
       time: "4-6 min read",
     },
-    { id: "long", text: "Long", words: "1600+ words", time: "8+ min read" },
+    {
+      id: "long",
+      text: "Long",
+      words: "1600+ words",
+      time: "8+ min read",
+    },
   ];
 
   const [selectedLength, setSelectedLength] = useState(articleLengths[0]);
