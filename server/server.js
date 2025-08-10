@@ -6,6 +6,7 @@ import axios from "axios";
 import cloudinary from "cloudinary";
 import { clerkMiddleware } from "@clerk/express";
 import { requireAuth } from "@clerk/express";
+import aiRouter from "./routes/aiRoutes.js";
 
 // Initialize dotenv
 dotenv.config();
@@ -17,6 +18,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware for Clerk
 app.use(clerkMiddleware());
 
 // Routes
@@ -25,6 +28,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(requireAuth());
+app.use("/api/ai", aiRouter);
+
 
 // Start server
 const PORT = process.env.PORT || 3000;

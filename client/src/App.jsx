@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
@@ -10,8 +10,17 @@ import BlogTitles from "./pages/BlogTitles";
 import Layout from "./pages/Layout";
 import Community from "./pages/Community";
 import RemoveObject from "./pages/RemoveObject";
+import { useAuth } from "@clerk/clerk-react";
 
 const App = () => {
+  const { getToken } = useAuth();
+
+  useEffect(() => {
+    getToken().then((token) => {
+      console.log(token);
+    });
+  }, [getToken]);
+
   return (
     <div>
       <Routes>
