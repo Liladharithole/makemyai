@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Sparkles, FileText, X, Upload, Download, Star, Check, AlertCircle, FileType } from "lucide-react";
+import {
+  Sparkles,
+  FileText,
+  X,
+  Upload,
+  Download,
+  Star,
+  Check,
+  AlertCircle,
+  FileType,
+} from "lucide-react";
 
 const ReviewResume = () => {
   const [file, setFile] = useState(null);
@@ -46,57 +56,71 @@ const ReviewResume = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return;
-    
+
     setIsProcessing(true);
-    
+
     try {
       // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
       // Mock review data - in a real app, this would come from your API
       setReview({
         overallScore: 4.2,
         strengths: [
           "Clear and concise work experience section",
           "Strong action verbs used throughout",
-          "Good use of metrics to quantify achievements"
+          "Good use of metrics to quantify achievements",
         ],
         improvements: [
           "Could include more relevant skills for the target role",
           "Consider adding a professional summary at the top",
-          "Some work experiences could use more detail"
+          "Some work experiences could use more detail",
         ],
         atsScore: 78,
-        keywords: ["JavaScript", "React", "Node.js", "Team Leadership", "Project Management"],
+        keywords: [
+          "JavaScript",
+          "React",
+          "Node.js",
+          "Team Leadership",
+          "Project Management",
+        ],
         missingKeywords: ["TypeScript", "Docker", "AWS"],
-        lastUpdated: new Date().toLocaleDateString()
+        lastUpdated: new Date().toLocaleDateString(),
       });
     } catch (error) {
-      console.error('Error processing resume:', error);
+      console.error("Error processing resume:", error);
     } finally {
       setIsProcessing(false);
     }
   };
-  
+
   const renderStars = (score) => {
     const stars = [];
     const fullStars = Math.floor(score);
     const hasHalfStar = score % 1 >= 0.5;
-    
+
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
-        stars.push(<Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />);
+        stars.push(
+          <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+        );
       } else if (i === fullStars + 1 && hasHalfStar) {
-        stars.push(<Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />);
+        stars.push(
+          <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+        );
       } else {
-        stars.push(<Star key={i} className="w-5 h-5 text-gray-300 fill-current" />);
+        stars.push(
+          <Star key={i} className="w-5 h-5 text-gray-300 fill-current" />
+        );
       }
     }
-    
+
     return (
       <div className="flex items-center">
         {stars}
-        <span className="ml-2 text-sm font-medium text-gray-700">{score.toFixed(1)}/5.0</span>
+        <span className="ml-2 text-sm font-medium text-gray-700">
+          {score.toFixed(1)}/5.0
+        </span>
       </div>
     );
   };
@@ -109,7 +133,8 @@ const ReviewResume = () => {
             AI-Powered Resume Review
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Get instant feedback on your resume and improve your chances of landing interviews
+            Get instant feedback on your resume and improve your chances of
+            landing interviews
           </p>
         </div>
 
@@ -166,13 +191,13 @@ const ReviewResume = () => {
                           {fileName}
                         </p>
                         <p className="text-xs text-gray-500 uppercase">
-                          {fileType.split('/')[1] || 'DOCUMENT'}
+                          {fileType.split("/")[1] || "DOCUMENT"}
                         </p>
                         <div className="mt-2 flex gap-3">
                           <button
                             type="button"
                             onClick={() => {
-                              const link = document.createElement('a');
+                              const link = document.createElement("a");
                               link.href = filePreview;
                               link.download = fileName;
                               document.body.appendChild(link);
@@ -200,7 +225,10 @@ const ReviewResume = () => {
               </div>
 
               <div className="mb-6">
-                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="notes"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Additional Notes (Optional)
                 </label>
                 <textarea
@@ -223,8 +251,8 @@ const ReviewResume = () => {
                 disabled={!filePreview || isProcessing}
                 className={`w-full flex justify-center items-center gap-2 px-6 py-3 rounded-xl text-white font-medium transition-all ${
                   !filePreview || isProcessing
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98]'
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98]"
                 }`}
               >
                 {isProcessing ? (
@@ -280,14 +308,17 @@ const ReviewResume = () => {
                     Your Analysis Awaits
                   </h3>
                   <p className="text-gray-500 max-w-md mx-auto">
-                    Upload your resume and click "Review My Resume" to get detailed feedback and improvement suggestions.
+                    Upload your resume and click "Review My Resume" to get
+                    detailed feedback and improvement suggestions.
                   </p>
                 </div>
               ) : isProcessing ? (
                 <div className="flex flex-col items-center justify-center py-16">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600 mb-4"></div>
                   <p className="text-gray-600">Analyzing your resume...</p>
-                  <p className="text-sm text-gray-500 mt-1">This may take a moment</p>
+                  <p className="text-sm text-gray-500 mt-1">
+                    This may take a moment
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -295,25 +326,36 @@ const ReviewResume = () => {
                   <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <h3 className="text-sm font-medium text-blue-800 mb-1">Overall Score</h3>
+                        <h3 className="text-sm font-medium text-blue-800 mb-1">
+                          Overall Score
+                        </h3>
                         <p className="text-sm text-blue-700">
-                          {review.overallScore >= 4 ? 'Great job!' : review.overallScore >= 3 ? 'Good start!' : 'Needs improvement'}
+                          {review.overallScore >= 4
+                            ? "Great job!"
+                            : review.overallScore >= 3
+                            ? "Good start!"
+                            : "Needs improvement"}
                         </p>
                       </div>
                       <div className="mt-3 sm:mt-0">
                         {renderStars(review.overallScore)}
                       </div>
                     </div>
-                    
+
                     <div className="mt-4">
                       <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div 
-                          className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full" 
-                          style={{ width: `${(review.overallScore / 5) * 100}%` }}
+                        <div
+                          className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2.5 rounded-full"
+                          style={{
+                            width: `${(review.overallScore / 5) * 100}%`,
+                          }}
                         ></div>
                       </div>
                       <p className="text-xs text-gray-500 mt-1 text-right">
-                        ATS Score: <span className="font-medium">{review.atsScore}/100</span>
+                        ATS Score:{" "}
+                        <span className="font-medium">
+                          {review.atsScore}/100
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -330,7 +372,9 @@ const ReviewResume = () => {
                           <div className="flex-shrink-0 h-5 w-5 text-green-500">
                             <Check className="h-5 w-5" />
                           </div>
-                          <p className="ml-2 text-sm text-gray-700">{strength}</p>
+                          <p className="ml-2 text-sm text-gray-700">
+                            {strength}
+                          </p>
                         </li>
                       ))}
                     </ul>
@@ -348,7 +392,9 @@ const ReviewResume = () => {
                           <div className="flex-shrink-0 h-5 w-5 text-yellow-500">
                             <AlertCircle className="h-5 w-5" />
                           </div>
-                          <p className="ml-2 text-sm text-gray-700">{improvement}</p>
+                          <p className="ml-2 text-sm text-gray-700">
+                            {improvement}
+                          </p>
                         </li>
                       ))}
                     </ul>
@@ -356,25 +402,37 @@ const ReviewResume = () => {
 
                   {/* Keywords */}
                   <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">Keyword Analysis</h3>
-                    
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">
+                      Keyword Analysis
+                    </h3>
+
                     <div className="mb-4">
-                      <p className="text-xs font-medium text-gray-700 mb-2">Strong Keywords Found:</p>
+                      <p className="text-xs font-medium text-gray-700 mb-2">
+                        Strong Keywords Found:
+                      </p>
                       <div className="flex flex-wrap gap-2">
                         {review.keywords.slice(0, 8).map((keyword, index) => (
-                          <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          <span
+                            key={index}
+                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                          >
                             {keyword}
                           </span>
                         ))}
                       </div>
                     </div>
-                    
+
                     {review.missingKeywords.length > 0 && (
                       <div>
-                        <p className="text-xs font-medium text-gray-700 mb-2">Consider Adding:</p>
+                        <p className="text-xs font-medium text-gray-700 mb-2">
+                          Consider Adding:
+                        </p>
                         <div className="flex flex-wrap gap-2">
                           {review.missingKeywords.map((keyword, index) => (
-                            <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                            <span
+                              key={index}
+                              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800"
+                            >
                               {keyword}
                             </span>
                           ))}
