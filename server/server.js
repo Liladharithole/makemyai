@@ -3,16 +3,19 @@ import dotenv from "dotenv";
 import cors from "cors";
 import multer from "multer";
 import axios from "axios";
-import cloudinary from "cloudinary";
+// Initialize dotenv
+dotenv.config();
 import { clerkMiddleware } from "@clerk/express";
 import { requireAuth } from "@clerk/express";
 import aiRouter from "./routes/aiRoutes.js";
+import cloudinary from './config/cloudinary.js';
 
-// Initialize dotenv
-dotenv.config();
 
 // Initialize express
 const app = express();
+
+// Initialize cloudinary
+cloudinary;
 
 // Middleware
 app.use(cors());
@@ -29,7 +32,6 @@ app.get("/", (req, res) => {
 
 app.use(requireAuth());
 app.use("/api/ai", aiRouter);
-
 
 // Start server
 const PORT = process.env.PORT || 3000;
