@@ -8,6 +8,7 @@ import {
   Sparkles as SparklesIcon,
   Wand2 as Wand2Icon
 } from "lucide-react";
+import Mainteance from "../components/Mainteance";
 
 const RemoveObject = () => {
   const [input, setInput] = useState(null);
@@ -70,6 +71,7 @@ const RemoveObject = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-4 sm:px-6 lg:px-8">
+      <Mainteance name="Remove Object" />
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-3">

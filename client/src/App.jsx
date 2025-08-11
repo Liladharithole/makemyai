@@ -7,6 +7,7 @@ import RemoveBackground from "./pages/RemoveBackground";
 import ReviewResume from "./pages/ReviewResume";
 import WriteArticle from "./pages/WriteArticle";
 import BlogTitles from "./pages/BlogTitles";
+import Creations from "./pages/Creations";
 import Layout from "./pages/Layout";
 import Community from "./pages/Community";
 import RemoveObject from "./pages/RemoveObject";
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/ai" element={<Layout />}>
           <Route index element={<Dashboard />} />
+          <Route path="creations" element={<Creations />} />
           <Route path="generate-images" element={<GenerateImages />} />
           <Route path="remove-background" element={<RemoveBackground />} />
           <Route path="remove-object" element={<RemoveObject />} />

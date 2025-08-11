@@ -38,6 +38,7 @@ const Layout = () => {
       <div className="flex flex-1 w-full overflow-hidden">
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
         <main className="flex-1 overflow-auto bg-[#F4F7FB] p-4 sm:p-6">
+       
           <Outlet />
         </main>
       </div>
