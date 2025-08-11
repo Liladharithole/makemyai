@@ -10,7 +10,7 @@ import { requireAuth } from "@clerk/express";
 import aiRouter from "./routes/aiRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import cloudinary from "./config/cloudinary.js";
-
+ 
 // Initialize express
 const app = express();
 

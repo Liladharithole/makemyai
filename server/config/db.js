@@ -5,7 +5,7 @@ import { neon } from "@neondatabase/serverless";
 const cleanDatabaseUrl = (url) => {
     if (!url) return '';
     return url.replace(/\s+/g, '').trim();
-  };
+  }; 
 
 const sql = neon(cleanDatabaseUrl(process.env.DATABASE_URL));
 
