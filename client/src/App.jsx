@@ -10,19 +10,18 @@ import BlogTitles from "./pages/BlogTitles";
 import Layout from "./pages/Layout";
 import Community from "./pages/Community";
 import RemoveObject from "./pages/RemoveObject";
+import { Toaster } from "react-hot-toast";
 import { useAuth } from "@clerk/clerk-react";
 
 const App = () => {
   const { getToken } = useAuth();
-
   useEffect(() => {
-    getToken().then((token) => {
-      console.log(token);
-    });
-  }, [getToken]);
+    getToken().then((token) => console.log(token));
+  }, []);
 
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ai" element={<Layout />}>
