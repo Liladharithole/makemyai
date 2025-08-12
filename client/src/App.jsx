@@ -15,10 +15,10 @@ import { Toaster } from "react-hot-toast";
 import { useAuth } from "@clerk/clerk-react";
 
 const App = () => {
-  const { getToken } = useAuth();
-  useEffect(() => {
-    getToken().then((token) => console.log(token));
-  }, []);
+  // const { getToken } = useAuth();
+  // useEffect(() => {
+  //   getToken().then((token) => console.log(token));
+  // }, []);
 
   return (
     <div>

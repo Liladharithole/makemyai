@@ -122,7 +122,7 @@
 - [Clerk](https://clerk.dev/) for authentication
 - [Neon](https://neon.tech/) for serverless Postgres
 - [Clipdrop](https://clipdrop.co/) for image processing
-- [Google Studio](https://studio.google.com/) for AI Generation Content
+- [Google Studio](https://aistudio.google.com/prompts/new_chat) for AI Generation Content
 - [Cloudinary](https://cloudinary.com/) for image storage
 
 ### Server (`.env`)
