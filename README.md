@@ -12,6 +12,7 @@
 
 ### 🖋️ AI-Powered Content Generation
 
+- Generate prompts that can understand by AI and generate by AI (Reverse Engineering).
 - Generate articles and blog titles
 - Generate engaging blog titles and outlines
 - Create high-quality articles with AI assistance
