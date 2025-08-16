@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
 import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 const PromptGenerator = () => {
   const PromptCategories = [
@@ -21,7 +22,7 @@ const PromptGenerator = () => {
   const [selectedCategory, setSelectedCategory] = useState("ChatGPT");
   const [keyword, setKeyword] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [titles, setTitles] = useState("");
+  const [prompt, setPrompt] = useState("");
   const [copiedIndex, setCopiedIndex] = useState(null);
 
   const generatePrompt = async (e) => {
@@ -50,7 +51,7 @@ const PromptGenerator = () => {
       );
       toast.success("Prompt generated successfully");
 
-      setTitles(data.content);
+      setPrompt(data.content);
     } catch (error) {
       console.error("Error details:", {
         message: error.message,
@@ -178,34 +179,97 @@ const PromptGenerator = () => {
                     <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-blue-500 rounded-full animate-spin"></div>
                   </div>
                   <p className="mt-6 text-lg font-medium text-gray-700">
-                    Generating your titles
+                    Generating your prompt
                   </p>
                   <p className="mt-2 text-sm text-gray-500">
                     This usually takes a few seconds
                   </p>
                 </div>
-              ) : titles.length > 0 ? (
-                <div className="space-y-4">
-                  {/* {titles.map((title, index) => (
-                    <div
-                      key={index}
-                      className="group relative p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              ) : prompt.length > 0 ? (
+                <div className="relative">
+                  <div className="absolute top-4 right-4">
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(prompt);
+                        toast.success("Prompt copied to clipboard!");
+                      }}
+                      className="p-2 text-gray-400 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors"
+                      title="Copy to clipboard"
                     >
-                      <h3 className="text-gray-900 pr-8">{title}</h3>
-                      <button
-                        onClick={() => copyToClipboard(title, index)}
-                        className="absolute top-3 right-3 p-1.5 text-gray-400 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors"
-                        title="Copy to clipboard"
-                      >
-                        {copiedIndex === index ? (
-                          "Copied!"
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
-                      </button>
-                    </div>
-                  ))} */}
-                  <Markdown>{titles}</Markdown>
+                      <Copy className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <div className="prose max-w-none pr-10">
+                    <Markdown
+                      rehypePlugins={[rehypeRaw]}
+                      components={{
+                        ul: ({ node, ...props }) => (
+                          <ul
+                            className="list-disc pl-6 space-y-2 mb-4"
+                            {...props}
+                          />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol
+                            className="list-decimal pl-6 space-y-2 mb-4"
+                            {...props}
+                          />
+                        ),
+                        li: ({ node, ...props }) => (
+                          <li className="text-gray-800 mb-1" {...props} />
+                        ),
+                        p: ({ node, ...props }) => (
+                          <p
+                            className="text-gray-800 mb-4 leading-relaxed"
+                            {...props}
+                          />
+                        ),
+                        h1: ({ node, ...props }) => (
+                          <h1
+                            className="text-2xl font-bold text-gray-900 mt-6 mb-4"
+                            {...props}
+                          />
+                        ),
+                        h2: ({ node, ...props }) => (
+                          <h2
+                            className="text-xl font-semibold text-gray-900 mt-5 mb-3"
+                            {...props}
+                          />
+                        ),
+                        h3: ({ node, ...props }) => (
+                          <h3
+                            className="text-lg font-medium text-gray-900 mt-4 mb-2"
+                            {...props}
+                          />
+                        ),
+                        strong: ({ node, ...props }) => (
+                          <strong
+                            className="font-semibold text-gray-900"
+                            {...props}
+                          />
+                        ),
+                        em: ({ node, ...props }) => (
+                          <em className="italic text-gray-700" {...props} />
+                        ),
+                        code: ({ node, ...props }) => (
+                          <code
+                            className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono"
+                            {...props}
+                          />
+                        ),
+                        a: ({ node, ...props }) => (
+                          <a
+                            className="text-blue-600 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            {...props}
+                          />
+                        ),
+                      }}
+                    >
+                      {prompt}
+                    </Markdown>
+                  </div>
                 </div>
               ) : (
                 <div className="h-full flex flex-col items-center justify-center text-center p-8">

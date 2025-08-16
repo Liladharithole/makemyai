@@ -7,9 +7,13 @@ import {
   removeBackground,
   removeObject,
   resumeReview,
+  generatePrompt,
 } from "../controllers/aiController.js";
 import upload from "../middlewares/multer.js";
 const aiRouter = express.Router();
+
+// Generate prompt
+aiRouter.post("/generate-prompt", auth, generatePrompt);
 
 // Generate article
 aiRouter.post("/generate-article", auth, genrateArticle);
