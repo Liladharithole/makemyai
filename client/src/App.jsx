@@ -13,6 +13,7 @@ import Community from "./pages/Community";
 import RemoveObject from "./pages/RemoveObject";
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "@clerk/clerk-react";
+import PromptGenerator from "./pages/PromptGenerator";
 
 const App = () => {
   // const { getToken } = useAuth();
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/ai" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="creations" element={<Creations />} />
+          <Route path="prompt-generator" element={<PromptGenerator />} />
           <Route path="generate-images" element={<GenerateImages />} />
           <Route path="remove-background" element={<RemoveBackground />} />
           <Route path="remove-object" element={<RemoveObject />} />
