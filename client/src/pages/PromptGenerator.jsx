@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sparkle, Hash, Copy, Loader2 } from "lucide-react";
+import { Sparkle, Hash, Copy, Loader2, Check } from "lucide-react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
@@ -23,7 +23,7 @@ const PromptGenerator = () => {
   const [keyword, setKeyword] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [prompt, setPrompt] = useState("");
-  const [copiedIndex, setCopiedIndex] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   const generatePrompt = async (e) => {
     e.preventDefault();
@@ -64,10 +64,11 @@ const PromptGenerator = () => {
     }
   };
 
-  const copyToClipboard = (text, index) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(prompt);
+    toast.success("Prompt copied to clipboard!");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
   };
 
   return (
@@ -115,7 +116,7 @@ const PromptGenerator = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select AI Model
+                  Select AI Model For Your Prompt
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {PromptCategories.map((category) => (
@@ -165,10 +166,29 @@ const PromptGenerator = () => {
           {/* Right Column - Results */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col max-h-[calc(100vh-200px)]">
             <div className="border-b border-gray-200 px-6 py-4">
-              <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                <Hash className="w-5 h-5 text-blue-600" />
-                Generated Prompt
-              </h2>
+              <div className="flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <Hash className="w-5 h-5 text-blue-600" />
+                  Generated Prompt
+                </h2>
+                {prompt && (
+                  <button
+                    onClick={handleCopy}
+                    className={`p-1.5 rounded-full transition-colors ${
+                      copied
+                        ? "text-green-500 bg-green-50"
+                        : "text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                    }`}
+                    title={copied ? "Copied!" : "Copy to clipboard"}
+                  >
+                    {copied ? (
+                      <Check className="w-4 h-4" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="flex-1 p-6 overflow-auto">
@@ -187,18 +207,6 @@ const PromptGenerator = () => {
                 </div>
               ) : prompt.length > 0 ? (
                 <div className="relative">
-                  <div className="absolute top-4 right-4">
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(prompt);
-                        toast.success("Prompt copied to clipboard!");
-                      }}
-                      className="p-2 text-gray-400 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors"
-                      title="Copy to clipboard"
-                    >
-                      <Copy className="w-5 h-5" />
-                    </button>
-                  </div>
                   <div className="prose max-w-none pr-10">
                     <Markdown
                       rehypePlugins={[rehypeRaw]}
