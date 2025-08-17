@@ -3,6 +3,7 @@ import { useUser, useClerk, Protect } from "@clerk/clerk-react";
 import {
   FileText,
   Hash,
+  Heart,
   House,
   Image as ImageIcon,
   SquarePen,
@@ -12,12 +13,12 @@ import {
   Users,
   ChevronLeft,
   ChevronRight,
-  Menu,
-  X,
   Sparkles,
+  Zap,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import Liladhar from "./LiladharFooter.jsx";
 
 const navItems = [
   {
@@ -29,8 +30,8 @@ const navItems = [
   {
     to: "/ai/prompt-generator",
     label: "Prompt Generator",
-    Icon: Sparkles,
-    badge: null,
+    Icon: Zap,
+    featured: true,
   },
   {
     to: "/ai/write-article",
@@ -122,12 +123,12 @@ const Sidebar = ({ sidebar, setSidebar }) => {
   return (
     <>
       {/* Mobile menu button */}
-      <button
+      {/* <button
         onClick={toggleSidebar}
         className="fixed bottom-4 left-4 z-40 p-2 rounded-full bg-white shadow-lg sm:hidden"
       >
         {sidebar ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-      </button>
+      </button> */}
 
       {/* Sidebar */}
       <div
@@ -172,7 +173,7 @@ const Sidebar = ({ sidebar, setSidebar }) => {
           </div>
           {!collapsed && (
             <div className="ml-3 overflow-hidden">
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-medium text-gray-900">
                 {user?.fullName}
               </p>
               <div className="flex items-center">
@@ -196,42 +197,55 @@ const Sidebar = ({ sidebar, setSidebar }) => {
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-4 px-2">
           <ul className="space-y-1">
-            {navItems.map(({ to, label, Icon, badge }) => (
+            {navItems.map(({ to, label, Icon, badge, featured }) => (
               <li key={to}>
                 <NavLink
                   to={to}
-                  end={to === "/ai"}
                   onClick={() => handleNavigation(to)}
                   className={({ isActive }) =>
-                    `flex items-center ${
-                      collapsed ? "justify-center px-2" : "px-4"
-                    } py-2.5 rounded-lg mx-2 text-sm font-medium transition-colors ${
+                    `group flex items-center ${
+                      collapsed ? "px-3" : "px-4"
+                    } py-3 text-sm font-medium rounded-lg mx-2 transition-colors ${
                       isActive
-                        ? "bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 font-semibold"
-                        : "text-gray-700 hover:bg-gray-100"
+                        ? featured
+                          ? "bg-gradient-to-r from-yellow-50 to-amber-50 text-amber-700 border border-amber-200 shadow-sm"
+                          : "bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-100 shadow-sm"
+                        : featured
+                        ? "hover:bg-amber-50 text-amber-600 hover:text-amber-700"
+                        : "text-gray-700 hover:bg-blue-50 hover:text-blue-700"
                     }`
                   }
                 >
-                  {({ isActive }) => (
-                    <>
-                      <div className="relative">
-                        <Icon
-                          className={`w-5 h-5 ${
-                            isActive ? "text-blue-600" : "text-gray-500"
-                          }`}
-                          strokeWidth={isActive ? 2 : 1.5}
-                        />
-                        {badge && !collapsed && (
-                          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] px-1.5 rounded-full">
-                            {badge}
-                          </span>
-                        )}
-                      </div>
-                      {!collapsed && <span className="ml-3">{label}</span>}
-                      {badge && collapsed && (
-                        <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                  <span className="relative">
+                    <Icon
+                      className={`w-5 h-5 ${
+                        featured
+                          ? "text-amber-500"
+                          : "text-blue-600 group-hover:text-blue-700"
+                      }`}
+                    />
+                    {badge && (
+                      <span
+                        className={`absolute -top-2 -right-2 text-[10px] px-1.5 py-0.5 rounded-full ${
+                          featured
+                            ? "bg-gradient-to-r from-amber-400 to-amber-500 text-white font-bold"
+                            : "bg-blue-100 text-blue-800"
+                        }`}
+                      >
+                        {badge}
+                      </span>
+                    )}
+                  </span>
+                  {!collapsed && (
+                    <span className="ml-3">
+                      {label}
+                      {featured && (
+                        <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800">
+                          <Sparkles className="w-3 h-3 mr-1" />
+                          Featured
+                        </span>
                       )}
-                    </>
+                    </span>
                   )}
                 </NavLink>
               </li>
@@ -239,26 +253,77 @@ const Sidebar = ({ sidebar, setSidebar }) => {
           </ul>
         </nav>
 
-        {/* Bottom Section */}
+        {/* User Profile and Logout - Only show on large screens */}
         <div
-          className={`p-4 border-t border-gray-200 ${
-            collapsed ? "text-center" : ""
-          }`}
+          className={`${
+            isMobile ? "hidden" : "block"
+          } border-t border-gray-200 p-4`}
         >
           <button
-            onClick={() => signOut()}
-            className={`flex items-center w-full p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors ${
+            onClick={() => signOut(() => navigate("/"))}
+            className={`flex w-full items-center rounded-lg p-2 text-sm font-medium text-red-600 hover:bg-red-50 ${
               collapsed ? "justify-center" : "px-4"
             }`}
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="h-5 w-5" />
+            {!collapsed && <span className="ml-3">Sign Out</span>}
+          </button>
+        </div>
+
+        {/* Mobile-only profile section */}
+        {isMobile && (
+          <div
+            onClick={() => openUserProfile()}
+            className={`flex items-center p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors ${
+              collapsed ? "justify-center" : "px-6"
+            }`}
+          >
+            <div className="relative">
+              <img
+                src={user?.imageUrl}
+                alt={user?.fullName}
+                className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
+              />
+              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+            </div>
             {!collapsed && (
-              <span className="ml-3 text-sm font-medium">Sign Out</span>
+              <div className="ml-3 overflow-hidden">
+                <p className="text-sm font-medium text-gray-900">
+                  {user?.fullName}
+                </p>
+                <div className="flex items-center">
+                  <Protect
+                    plan="premium"
+                    fallback={
+                      <span className="text-xs text-gray-500">Free Plan</span>
+                    }
+                  >
+                    <div className="flex items-center">
+                      <span className="text-xs bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-2 py-0.5 rounded-full">
+                        PRO
+                      </span>
+                    </div>
+                  </Protect>
+                </div>
+              </div>
             )}
+          </div>
+        )}
+
+        {/* Bottom Section */}
+        <div className="p-4 border-t border-gray-200 space-y-3">
+          <button
+            onClick={() => signOut()}
+            className="w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-lg transition-colors"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            {!collapsed && <span>Sign out</span>}
           </button>
         </div>
       </div>
 
+      {/* Footer outside the main sidebar content */}
+      <Liladhar />
       {/* Overlay for mobile */}
       {isMobile && sidebar && (
         <div

@@ -51,13 +51,14 @@ export const generatePrompt = async (req, res) => {
         {
           role: "user",
           content: `Create a well-structured prompt in English about "${keyword}" that is optimized for the ${selectedCategory} model. 
-          Format the response using markdown with proper formatting but DO NOT include the word 'markdown' in the response.
+          Format the response using markdown with proper formatting but DO NOT include any headers, titles, or the word 'markdown' in the response.
+          - Start directly with the content
           - Use bullet points for lists
           - Use numbered lists for steps or sequences
           - Use **bold** for important terms
           - Use *italics* for emphasis
           
-          Only return the formatted content without any additional explanations or notes.`,
+          Only return the formatted content without any additional explanations, notes, or headers.`,
         },
       ],
       temperature: 0.7,
@@ -69,6 +70,8 @@ export const generatePrompt = async (req, res) => {
     // Clean up the response
     content = content
       .replace(/^[\s\S]*?(?=#|\*|\d+\.|\w)/, "") // Remove anything before the first list, heading, or word
+      .replace(/(?:#+\s*)?(?:prompt|title|heading):?\s*/gi, "") // Remove any remaining headers
+      .replace(/(?:okay, )?here'?s? (?:the )?prompt:?\s*/gi, "") // Remove "Okay, here's the prompt:" variations
       .replace(/markdown/gi, "") // Remove any instances of the word 'markdown'
       .trim();
 

@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import { useUser, useClerk } from "@clerk/clerk-react";
 
+
 const Layout = () => {
   const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
@@ -37,8 +38,8 @@ const Layout = () => {
       </nav>
       <div className="flex flex-1 w-full overflow-hidden">
         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
+
         <main className="flex-1 overflow-auto bg-[#F4F7FB] p-4 sm:p-6">
-       
           <Outlet />
         </main>
       </div>

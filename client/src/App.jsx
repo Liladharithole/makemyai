@@ -14,6 +14,7 @@ import RemoveObject from "./pages/RemoveObject";
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "@clerk/clerk-react";
 import PromptGenerator from "./pages/PromptGenerator";
+import Footer from "./components/Footer";
 
 const App = () => {
   // const { getToken } = useAuth();

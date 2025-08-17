@@ -1,18 +1,39 @@
 import React, { useState } from "react";
-import { Sparkle, Hash, Copy, Loader2, Check } from "lucide-react";
+import {
+  Sparkle,
+  Hash,
+  Copy,
+  Loader2,
+  Check,
+  ExternalLink,
+} from "lucide-react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
+// Add platform icons
+import {
+  SiOpenai,
+  SiAnthropic,
+  SiGoogle,
+  SiX,
+  SiPerplexity,
+} from "react-icons/si";
+
+// Prompt Categories with icons and model names
 const PromptGenerator = () => {
   const PromptCategories = [
-    { id: "ChatGPT", name: "ChatGPT" },
-    { id: "Claude", name: "Claude" },
-    { id: "Gemini", name: "Gemini" },
-    { id: "Grok", name: "Grok" },
-    { id: "Perplexity", name: "Perplexity" },
+    { id: "ChatGPT", name: "ChatGPT", icon: <SiOpenai className="w-4 h-4" /> },
+    { id: "Claude", name: "Claude", icon: <SiAnthropic className="w-4 h-4" /> },
+    { id: "Gemini", name: "Gemini", icon: <SiGoogle className="w-4 h-4" /> },
+    { id: "Grok", name: "Grok", icon: <SiX className="w-4 h-4" /> },
+    {
+      id: "Perplexity",
+      name: "Perplexity",
+      icon: <SiPerplexity className="w-4 h-4" />,
+    },
   ];
 
   // Get token from Clerk
@@ -71,13 +92,56 @@ const PromptGenerator = () => {
     setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
   };
 
+  const getPlatformUrl = (platform) => {
+    const baseUrls = {
+      ChatGPT: `https://chat.openai.com/?q=${encodeURIComponent(prompt)}`,
+      Claude: `https://claude.ai/chat?prompt=${encodeURIComponent(prompt)}`,
+      Gemini: `https://gemini.google.com/app?prompt=${encodeURIComponent(
+        prompt
+      )}`,
+      Grok: `https://grok.com/?q=${encodeURIComponent(prompt)}`,
+      Perplexity: `https://www.perplexity.ai/search?q=${encodeURIComponent(
+        prompt
+      )}`,
+    };
+    return baseUrls[platform];
+  };
+
+  const handlePlatformRedirect = (platformId) => {
+    // Copy the prompt to clipboard
+    navigator.clipboard.writeText(prompt);
+
+    // Open the platform URL
+    const platform = PromptCategories.find((p) => p.id === platformId);
+    if (platform) {
+      const url = getPlatformUrl(platformId);
+      window.open(url, "_blank", "noopener,noreferrer");
+      toast.success(`Prompt copied! Opening ${platformId}...`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-3">
-            AI Prompt Generator
+            AI Prompt Generator{" "}
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-sm">
+              <svg
+                className="w-3.5 h-3.5 mr-1.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Reverse Engineering
+            </span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Generate AI prompts that can understand by AI and generate by AI.
@@ -116,7 +180,7 @@ const PromptGenerator = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Select AI Model For Your Prompt
+                  Select AI Model For which you want to generate prompt.
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {PromptCategories.map((category) => (
@@ -130,7 +194,8 @@ const PromptGenerator = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="flex items-center gap-2 text-sm font-medium text-gray-900">
+                          {category.icon}
                           {category.name}
                         </span>
                       </div>
@@ -207,6 +272,24 @@ const PromptGenerator = () => {
                 </div>
               ) : prompt.length > 0 ? (
                 <div className="relative">
+                  <div className="flex flex-col gap-3 mb-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                    <p className="text-sm font-medium text-gray-700">
+                      Open in AI platform:
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {PromptCategories.map((platform) => (
+                        <button
+                          key={platform.id}
+                          onClick={() => handlePlatformRedirect(platform.id)}
+                          className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-blue-200 bg-white text-blue-700 hover:bg-blue-50 hover:border-blue-300 transition-colors shadow-sm"
+                          title={`Copy prompt and open ${platform.name}`}
+                        >
+                          {platform.icon}
+                          <span>{platform.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <div className="prose max-w-none pr-10">
                     <Markdown
                       rehypePlugins={[rehypeRaw]}
