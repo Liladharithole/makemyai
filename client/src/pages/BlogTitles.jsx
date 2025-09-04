@@ -31,34 +31,6 @@ const BlogTitles = () => {
   const [titles, setTitles] = useState("");
   const [copiedIndex, setCopiedIndex] = useState(null);
 
-  // const generateTitles = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     setIsGenerating(true);
-  //     const { data } = await axios.post(
-  //       `${import.meta.env.VITE_BASE_URL}/api/ai/generate-blog-titles`,
-  //       {
-  //         keyword,
-  //         selectedCategory,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     const titles = data.content;
-  //     setTitles(titles);
-  //     toast.success("Titles generated successfully");
-  //   } catch (error) {
-  //     toast.error(error.response.data.error);
-  //   } finally {
-  //     setIsGenerating(false);
-  //   }
-  // };
-
   const generateTitles = async (e) => {
     e.preventDefault();
     if (!keyword.trim()) {
@@ -84,13 +56,6 @@ const BlogTitles = () => {
         }
       );
       toast.success("Titles generated successfully");
-
-      // const cleanTitles = data.content
-      //   .replace(/\*\*/g, "") // Remove ** for bold
-      //   .replace(/`/g, "") // Remove ` for code
-      //   .replace(/#+\s*/g, "") // Remove # headers
-      //   .replace(/\d+\.\s*/g, "") // Remove numbers with dots
-      //   .trim();
 
       setTitles(data.content);
     } catch (error) {
